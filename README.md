@@ -7,6 +7,7 @@ Please make contact if you require further details. <hello@snowdon.dev>
 |Website|PDF|<https://cv.snowdon.dev>|
 |Download|PDF|<https://download.cv.snowdon.dev>|
 |git clone|Git|<https://repo.cv.snowdon.dev>|
+|gh repo create|Git|TODO|
 
 ## Fork your own copy
 
