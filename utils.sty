@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{utils}
+  [2023/04/30 v0.1 A Latex utilities package for my cv template]
+
+
+  \newcommand{\cvfooter}{This C.V was prepared in \LaTeX \hspace{0.1mm} and is available at 
+  \href{https://repo.cv.snowdon.dev}{repo.cv.snowdon.dev} or via \href{https://download.cv.snowdon.dev}{direct download}.}
+  
+  
+  \newcommand{\cvheader}{\begin{minipage}[t]{0.25\textwidth} % 25% of the page width for the first row of icons
+      \vspace{-\baselineskip} % Required for vertically aligning minipages
+      % The first parameter is the FontAwesome icon name, the second is the box size and the third is the text
+      % Other icons can be found by referring to fontawesome.pdf (supplied with the template) and using the word after \fa in the command for the icon you want
+      \begin{tabular}{rl}
+          Sunderland, SR4, UK                                  \vline & \icon{MapMarker}{12.5}{}\\
+          \href{mailto:hello@snowdon.dev}{hello@snowdon.dev}     \vline & \icon{At}{12.5}{}\\
+          \href{https://github.com/snowdon-dev}{snowdon-dev}   \vline & \icon{Github}{12.5}{}\\
+      \end{tabular}
+  \end{minipage}
+  \begin{minipage}[t]{0.40\textwidth} % 45% of the page width for name
+      \vspace{-\baselineskip} % Required for vertically aligning minipages
+  
+      % If your name is very short, use just one of the lines below
+      % If your name is very long, reduce the font size or make the minipage wider and reduce the others proportionately
+      \colorbox{black}{{\HUGE\textcolor{white}{\textbf{\MakeUppercase{Snowdon}}}}} % First name
+  
+      \colorbox{black}{{\HUGE\textcolor{white}{\textbf{\MakeUppercase{Dev}}}}} % Last name
+  
+      \vspace{6pt}
+  
+      {\large Full Stack Developer} % Career or current job title
+  \end{minipage}
+  \begin{minipage}[t]{0.35\textwidth} % 50% of the page for the skills bar chart
+      \vspace{-\baselineskip} % Required for vertically aligning minipages
+      \begin{barchart}{3.5}
+          \baritem{Architecture}{80}
+          \baritem{Programming}{100}
+          \baritem{Linux}{70}
+          \baritem{Platform}{70}
+          \baritem{Cloud Native}{70}
+      \end{barchart}
+  \end{minipage}}
+
+  
+\endinput

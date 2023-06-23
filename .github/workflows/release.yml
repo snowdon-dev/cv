@@ -1,0 +1,81 @@
+name: Compile, release and deploy. 
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+
+jobs:
+  master-build-pdf:
+    strategy:
+      matrix:
+        file: [main]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: blang/latex:ubuntu
+      volumes:
+        - ${{ github.workspace }}/:/data
+    steps:
+      - uses: actions/checkout@v3
+      - name: compile pdfs
+        run: pdflatex ${{ matrix.file }}.tex && pdflatex ${{ matrix.file }}.tex
+      - uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.file }}.pdf
+          path: ${{ matrix.file }}.pdf
+
+  master-build-md:
+    strategy:
+      matrix:
+        file: [main]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: pandoc/latex
+      volumes:
+        - ${{ github.workspace }}/:/data
+    steps:
+      - uses: actions/checkout@v3 
+      - name: compile markdown
+        run: pandoc -s ${{ matrix.file }}.tex -o ${{ matrix.file }}.md
+      - uses: actions/upload-artifact@master
+        with:
+          name: ${{ matrix.file }}.md
+          path: ${{ matrix.file }}.md
+  
+  main-pages-release:
+    needs: [master-build-pdf,master-build-md]
+    continue-on-error: true
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/download-artifact@master
+        with:
+          path: art/
+      - run: mkdir build && find ./art *.pdf -type f -print0 | xargs -0 -I {} cp {} ./build && find ./art *.md -type f -print0 | xargs -0 -I {} cp {} ./build
+      - run: cp index.html build/
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'build/'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
