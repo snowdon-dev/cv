@@ -7,12 +7,12 @@ Please make contact if you require further details. <hello@snowdon.dev>
 |Website|PDF|<https://cv.snowdon.dev>|
 |Download|PDF|<https://download.cv.snowdon.dev>|
 |git clone|Git|<https://repo.cv.snowdon.dev>|
+|gh repo create|Git|TODO|
 
 ## Fork your own copy
 
 - Fork the repository
-- Enable github pages
-- Enable github pages - actions (beta)
-- Change the links and stuff to your own (main.tex, utils.sty, README.md, index.html)
-- Push the changes, with a tag in the format, v1.**
+- Enable GitHub pages from actions (beta)
+- Change the links and text (see: main.tex, utils.sty, README.md, index.html)
+- Push the changes to GitHub and actions will build and deploy your site
 - Enjoy and forget about copying me copying someone
