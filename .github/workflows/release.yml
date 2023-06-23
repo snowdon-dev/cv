@@ -50,7 +50,6 @@ jobs:
   
   main-pages-release:
     needs: [master-build-pdf,master-build-md]
-    continue-on-error: true
     concurrency:
       group: "pages"
       cancel-in-progress: false
